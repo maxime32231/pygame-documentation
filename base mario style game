@@ -1,0 +1,54 @@
+import pygame
+from pygame import display
+from sys import exit
+
+pygame.init()
+screen = display.set_mode((800,400))
+pygame.display.set_caption('jumper')
+clock = pygame.time.Clock()
+test_font = pygame.font.Font('font/BoldPixels1.4.ttf', 50)
+
+
+sky_surface =  pygame.image.load('graphics/sky.jpg').convert()
+sky_surface = pygame.transform.scale(sky_surface, (800, 300))
+
+grass_surface = pygame.image.load('graphics/grass.jpg').convert()
+grass_surface = pygame.transform.scale(grass_surface, (800, 100))
+
+score_surface = test_font.render("jumper", False, 'green')
+score_rect = score_surface.get_rect(center = (400,50))
+
+spider_surface = pygame.image.load('graphics/spider.png').convert_alpha()
+spider_surface = pygame.transform.scale(spider_surface, (100, 100))
+spider_rect = spider_surface.get_rect(topleft = (800, 235)) # 235
+#spider_x_pos = 800
+
+player_surface = pygame.image.load('graphics/player.png').convert_alpha()
+player_surface = pygame.transform.scale(player_surface, (70, 150))
+player_rect = player_surface.get_rect(topleft = (80, 182))
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+    screen.blit(sky_surface,(0,0))
+    screen.blit(grass_surface, (0,300))
+    screen.blit(score_surface, (300, 50))
+
+    spider_rect.x -= 3
+    if spider_rect.right <= 0: spider_rect.left = 800
+
+    screen.blit(spider_surface, spider_rect)
+    screen.blit(player_surface, player_rect)
+
+    # if player_rect.colliderect(spider_rect):
+       # print("collide")
+
+    # mouse_pos = pygame.mouse.get_pos()
+    # if player_rect.collidepoint(mouse_pos):
+        # print("collition")
+
+    pygame.display.update()
+    clock.tick(60)
