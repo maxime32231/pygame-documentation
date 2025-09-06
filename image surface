@@ -1,0 +1,6 @@
+sky_surface =  pygame.image.load('graphics/sky.jpg')
+
+
+in the while true loop :
+
+screen.blit(sky_surface,(0,0))
